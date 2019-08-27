@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Addresses from  './views/Addresses.vue'
-import AddressForm from '.views/AddressFrom.vue'
+import AddressForm from './views/AddressForm.vue'
 
 Vue.use(Router)
 
@@ -22,7 +22,7 @@ export default new Router({
     },
     {
       path: '/addresses/:address_id?/edit' , 
-      name: 'addresses_edit' ,
+      name: 'address_edit' ,
       component: AddressForm
     },
     {
