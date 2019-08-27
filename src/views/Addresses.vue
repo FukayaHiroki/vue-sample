@@ -5,6 +5,13 @@
         <h1>連絡先一覧</h1>
       </v-flex>
 
+      <v-flex xs12 mt-5 text-xs-center>
+        <router-link :to= "{name: 'address-edit'}"></router-link>
+          <v-btn  color="info">
+            連絡先追加
+          </v-btn>
+      </v-flex>
+
       <v-flex xs12 mt-5 justify-center>
         <v-data-table :headers='headers' :items='addresses'>
           <template v-slot:items="props">
