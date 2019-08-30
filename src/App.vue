@@ -26,7 +26,7 @@ export default {
   created() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setLonginUser(user)
+        this.setLoginUser(user)
       }
     })
   },
