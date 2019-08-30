@@ -6,8 +6,11 @@
         <span>マイアドレス帳</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items v-if="$store.state.login_user">
+        <v-btn @click="logout">ログアウト</v-btn>
+      </v-toolbar-items>
+
     </v-toolbar>
-      <v-btn @click="logout">ログアウト</v-btn>
     <SideNav/>
     <v-content>
       <router-view/>

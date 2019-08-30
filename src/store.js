@@ -43,5 +43,9 @@ export default new Vuex.Store({
     addAddress ({ commit}, address) {
       commit('addAddress', address)
     }
+  },
+  getters: {
+    userName:state => state.login_user ? state.login_user.displayName : '',
+    photoURL:state => state.login_user ? state.login_user.photoURL: ''
   }
 })
