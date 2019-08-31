@@ -3,7 +3,9 @@ import './plugins/vuetify'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import firebase from 'firebase'
+import firebase from "firebase/app"
+import "firebase/auth"
+import "firebase/firestore"
 Vue.config.productionTip = false
 
 
@@ -12,7 +14,7 @@ var firebaseConfig = {
   authDomain: "myaddress-pj-62c2c.firebaseapp.com",
   databaseURL: "https://myaddress-pj-62c2c.firebaseio.com",
   projectId: "myaddress-pj-62c2c",
-  storageBucket: "",
+  storageBucket: "myaddress-pj-62c2c.appspot.com",
   messagingSenderId: "286241712305",
   appId: "1:286241712305:web:8807139499fd2b16"
 };

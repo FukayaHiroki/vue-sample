@@ -26,7 +26,6 @@
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>
-</v-layout>
 </template>
 
 <script>
