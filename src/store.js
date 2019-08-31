@@ -21,13 +21,27 @@ export default new Vuex.Store({
     deleteLoginUser(state) {
       state.login_user = null
     },
-    addAddress(state, address){
+    addAddress(state, { id, address}){
+      address.id = id
       state.addresses.push(address)
+    },
+    updateAddress (state, { id, address}) {
+      const index = state.addresses.findIndex(address => address.id  === id)
+      state.addresses[index] = address
+    },
+    deleteAddress (state, { id, address}) {
+      const index = state.addresses.findIndex(address => address.id  === id)
+      state.addresses.splice(index, 1)
     }
   },
   actions: {
     setLoginUser({ commit }, user) {
       commit('setLoginUser', user)
+    },
+    fetchAddresses({ getters, commit }) {
+      firebase.firestore().collection(`users/${getters.uid}/addresses`).get().then(snapshot => {
+        snapshot.forEach(doc => commit('addAddress', { id :doc.id, address: doc.data()}))
+      })
     },
     deleteLoginUser({ commit }) {
       commit('deleteLoginUser')
@@ -43,15 +57,31 @@ export default new Vuex.Store({
       commit('toggleSideMenu')
     },
     addAddress ({ getters, commit }, address) {
-      if (getters.uid) { 
-        firebase.firestore().collection(`users/${getters.uid}/addresses`).add(address)
-        commit('addAddress', address)
+      if (getters.uid) {
+        firebase.firestore().collection(`users/${getters.uid}/addresses`).add(address).then(doc => {
+          commit('addAddress', { id: doc.id, address })
+        })
+      }
+    },
+    updateAddress ({ getters,commit }, { id, address }) {
+      if (getters.uid) {
+        firebase.firestore().collection(`users/${getters.uid}/addresses`).doc(id).update(address).then(() => {
+          commit('addAddress', { id: doc.id, address})
+        }) 
+      }
+    },
+    deleteAddress ({ getters,commit }, { id }) {
+      if (getters.uid) {
+        firebase.firestore().collection(`users/${getters.uid}/addresses`).doc(id).delete().then(() => {
+          commit('deleteAddress', { id })
+        }) 
       }
     }
   },
   getters: {
-    userName:state => state.login_user ? state.login_user.displayName : '',
-    photoURL:state => state.login_user ? state.login_user.photoURL: '',
+    userName: state => state.login_user ? state.login_user.displayName : '',
+    photoURL: state => state.login_user ? state.login_user.photoURL: '',
     uid: state => state.login_user ? state.login_user.uid : null,
+    getAddressById: state => id => state.addresses.find(address => address.id === id)
   }
 })
