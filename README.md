@@ -1,2 +1,3 @@
+https://myaddress-pj-62c2c.firebaseapp.com
 教材を参考に制作したvue.js+firebaseのアプリケーションです
-firebaseのhostingを利用して公開予定です
+firebaseのhostingを利用したデプロイをしました
